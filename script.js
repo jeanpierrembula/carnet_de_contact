@@ -21,8 +21,20 @@ function addContact(nom, postnom, tel, groupe, myemail, detail, myimage) {
 }
 
 function getContactValue(){
-    const nom = document.getElementById("nom")
-    const postnom = document.getElementById("postnom")
-    const tel = document.getElementById("tel")
-    const groupe = document.getElementById("groupe")
+    const nom = document.getElementById("nom").value;
+    const postnom = document.getElementById("postnom").value;
+    const tel = document.getElementById("tel").value;
+    const groupe = document.getElementById("groupe").value;
+    const myemail = document.getElementById("myemail ").value;
+    const detail = document.getElementById("detail").value;
+
+    return {
+        nom,
+        postnom,
+        tel,
+        groupe,
+        myemail,
+        detail
+    }
+
 }
