@@ -121,10 +121,9 @@ html, body {
 }
 
 .partie_droite h2 {
-  width: 762px;
+  width: 765px;
   height: 30px;
   height: 54px;
-
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 700;
@@ -162,11 +161,67 @@ html, body {
   left: -35px;
 }
 
-.image-container {
-  
+#image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  /* padding: 45px 77px; */
+  gap: 11px;
+
+  width: 518px;
+  height: 138px;
+  border: 1px dashed #C4C4C4;
+  margin-left: 35px;
 }
 
+.button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 36px;
+  width: 302px;
+  height: 44px;
+  margin-top: 35px;
+  margin-left: 35px;
+}
 
+.submit {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px 45px;
+  gap: 10px;
+  width: 135px;
+  height: 44px;
+  background: #0880D6;
+}
+
+.reset {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 10px 45px;
+  gap: 10px;
+  width: 131px;
+  height: 44px;
+  background: #FF3838;
+}
+
+.contacts {
+  box-sizing: border-box;
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 52px;
+  width: 765px;
+  height: 202px;
+  border-bottom: 1px solid #C4C4C4;
+}
 
 /* Le responsive  */
 /* Médias queries */
