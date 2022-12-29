@@ -223,6 +223,21 @@ html, body {
   border-bottom: 1px solid #C4C4C4;
 }
 
+.contacts img {
+  width: 162px;
+  height: 162px;
+  border-radius: 162px;
+}
+.contacts p {
+  width: 183px;
+  height: 24px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+}
+
 /* Le responsive  */
 /* Médias queries */
 @media only screen and (max-width: 480px) {
