@@ -1,4 +1,177 @@
 html, body {
   height: 100%;
   width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background: #0880D6;
+  width: 1512px;
+  height: 70px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+}
+
+
+.header h1 {
+  position: relative;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  color: #FFFFFF;
+  left: 30px;
+}
+
+.main {
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 15px;
+
+  position: absolute;
+  width: 1340px;
+  height: 1007px;
+  margin: auto;
+  left: 200px;
+  right: 200px;
+  top: 85px;
+
+}
+
+.main form h2 {
+  padding: 12px 0; 
+  width: 560px;
+  height: 54px;
+
+  background: #0880D6;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  margin-top: 0;
+  /* identical to box height */
+
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.partie_gauche {
+  display: flex;
+  flex-direction: column;
+  width: 560px;
+  height: 953px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  width: 560px;
+  height: 1007px;
+  border: 1px solid #C4C4C4;
+}
+
+.input {
+  width: 518px;
+  height: 45px;
+
+  background: #FFFFFF;
+  border: 1px solid #C4C4C4;
+  margin-left: 30px;
+  margin-bottom: 35px;
+}
+
+.label {
+  width: 100px;
+  height: 24px;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  /* identical to box height */
+  text-align: center;
+  color: #0880D6;
+  margin-left: 30px;
+  top: 35px;
+}
+
+.partie_droite {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding:0px;
+  width: 765px;
+  height: 660px;
+  background: #FFFFFF;
+  border-width: 1px 1px 0px 1px;
+  border-style: solid;
+  border-color: #DDDDDD;
+}
+
+.partie_droite h2 {
+  width: 762px;
+  height: 30px;
+  height: 54px;
+
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  padding: 13px 0 13px;
+  /* identical to box height */
+  text-align: center;
+  color: #FFFFFF;
+  background-color: #0880D6;
+  margin-top: 0;
+}
+
+.textarea {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  /* gap: 11px; */
+  width: 518px;
+  height: 150px;
+  margin-left: 35px;
+}
+
+.textarea textarea{
+  width: 518px;
+  height: 115px;
+  background: #FFFFFF;
+  border: 1px solid #C4C4C4;
+}
+
+.textarea .label {
+  margin-left: 0px;
+  position: inherit;
+  left: -35px;
+}
+
+.image-container {
+  
+}
+
+
+
+/* Le responsive  */
+/* Médias queries */
+@media only screen and (max-width: 480px) {
+  .header h1, .main h2 {
+    font-size: 16px;
+  }
 }
