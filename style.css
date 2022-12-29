@@ -240,8 +240,86 @@ html, body {
 
 /* Le responsive  */
 /* Médias queries */
+/* Ajoutez ceci en haut de votre fichier CSS */
 @media only screen and (max-width: 480px) {
-  .header h1, .main h2 {
+  /* Ajustez la taille et la mise en forme de l'en-tête */
+  .header {
+    width: auto;
+    height: 50px;
+  }
+  .header h1 {
     font-size: 16px;
+    line-height: 24px;
+    left: 20px;
+  }
+
+  /* Ajustez la disposition et la taille des éléments principaux */
+  .main {
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    top: 50px;
+    left: 20px;
+    right: 20px;
+  }
+
+  /* Ajustez la taille et la mise en forme de la partie gauche */
+  .partie_gauche {
+    width: auto;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .partie_gauche h2 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .label {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .input {
+    height: 40px;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 12px;
+  }
+  .textarea {
+    width: auto;
+    height: auto;
+  }
+  .textarea label {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .textarea textarea {
+    height: 160px;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 12px;
+  }
+  #image-container {
+    height: 160px;
+  }
+  #image-container label {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  #image-container input {
+    width: 100%;
+    height: 40px;
+  }
+  #drop-zone {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  /* Ajustez la taille et la mise en forme de la partie droite */
+  .partie_droite {
+    width: auto;
+    height: auto;
+  }
+  .partie_droite h2 {
+    font-size: 16px;
+    line-height: 24px;
   }
 }
