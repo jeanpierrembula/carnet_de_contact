@@ -1,144 +1,186 @@
-function displayContact(name, postnom, phone, group, email, details, imageData) {
-  // Create a new div element for the contact
-  var contactDiv = document.createElement("div");
-  contactDiv.classList.add("contact");
+// on initialise le tableau de contact
+let contacts = []
 
-  // Add the contact information and image to the div
-  contactDiv.innerHTML = `
-    <div>
-      ${name ? `<p>Nom: ${name}</p>` : ""}
-      ${postnom ? `<p>Postnom: ${postnom}</p>` : ""}
-      ${phone ? `<p>Téléphone: ${phone}</p>` : ""}
-      ${group ? `<p>Groupe: ${group}</p>` : ""}
-      ${email ? `<p>Email: ${email}</p>` : ""}
-      ${details ? `<p>Détails: ${details}</p>` : ""}
-      ${imageData ? `<img src="${imageData}" alt="Image du contact">` : ""}
-      <button class="edit-button">Modifier</button>
-      <button class="delete-button">Supprimer</button>
-    </div>
-  `;
+// Récupère les éléments du formulaire
+const form = document.querySelector('#form');
+const postnom = document.querySelector('#postnom');
+const nom = document.querySelector('#nom');
+const tel = document.querySelector('#tel');
+const groupe = document.querySelector('#groupe');
+const email = document.querySelector('#email');
+const detail = document.querySelector('#detail');
+const dropzone = document.querySelector('.dropzone');
 
-  // Append the contact div to the "partie_droite" div
-  document.querySelector(".partie_droite").appendChild(contactDiv);
+// Récupère l'élément où les contacts seront affichés
+const contactContainer = document.getElementById('contactContainer')
 
-  // Add event listeners to the edit and delete buttons
-  contactDiv.querySelector(".edit-button").addEventListener("click", function() {
-    // TODO: Add code to edit the contact
-  });
-  contactDiv.querySelector(".delete-button").addEventListener("click", function() {
-    // Remove the contact div from the page
-    contactDiv.remove();
 
-    // Remove the contact from local storage
-    var contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-    var index = contacts.findIndex(function(c) {
-      return c.name === name && c.postnom === postnom && c.phone === phone && c.group === group && c.email === email && c.details === details && c.imageData === imageData;
+// Gère la soumission du formulaire
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // on Crée un objet contact avec les valeurs du formulaire
+    const contact = {
+        postnom : postnom.value,
+        nom : nom.value,
+        tel : tel.value,
+        groupe : groupe.value,
+        email : email.value,
+        bio : detail.value,
+    };
+    
+    // Récupère les images déposées dans la zone de dépôt
+    const images = dropzone.querySelectorAll('img');
+
+    // Ajoute les images au contact
+    contact.images = [];
+    images.forEach((image) => {
+        contact.images.push(image.src);
     });
-    if (index !== -1) {
-      contacts.splice(index, 1);
-      localStorage.setItem("contacts", JSON.stringify(contacts));
-    }
-  });
-}
 
-function createContact() {
-  // Get the values of the form inputs
-  var name = document.getElementById("nom").value;
-  var postnom = document.getElementById("postnom").value;
-  var phone = document.getElementById("tel").value;
-  var group = document.getElementById("groupe").value;
-  var email = document.getElementById("myemail").value;
-  var details = document.getElementById("detail").value;
-  var image = document.getElementById("myimage").files[0];
+    // Vide la zone de dépôt
+    dropzone.innerHTML = '<p>Glissez et déposez vos fichiers ici</p>';
 
-  // Read the image file and get the data as a base64-encoded string
-  var reader = new FileReader();
-  reader.readAsDataURL(image);
-  reader.onloadend = function() {
-    // Get the image data as a base64-encoded string
-    var imageData = reader.result;
+    // Ajoute le contact au tableau de contacts
+    contacts.push(contact);
 
-    // Display the contact
-    displayContact(name, postnom, phone, group, email, details, imageData);
+    // Réinitialise le formulaire
+    form.reset();
 
-    // Save the contact information to local storage
-    var contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-    contacts.push({ name: name, postnom: postnom, phone: phone, group: group, email: email, details: details, imageData: imageData });
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  };
-}
-
-// Load the saved contacts from local storage when the page loads
-window.addEventListener("load", function() {
-  var contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-  contacts.forEach(function(contact) {
-    displayContact(contact.name, contact.postnom, contact.phone, contact.group, contact.email, contact.details, contact.imageData);
-  });
+    // Met à jour la liste de contacts
+    updateContactList();
 });
 
-// Get the form element
-var form = document.querySelector("form");
+// Gère la suppression d'un contact
+function deleteContact(index) {
+    // Supprime le contact du tableau
+    contacts.splice(index, 1);
+  
+    // Met à jour la liste de contacts
+    updateContactList();
+}
 
-// Add an event listener to the form that listens for the "submit" event
-form.addEventListener("submit", function(event) {
-  // Prevent the default form submission behavior
-  event.preventDefault();
 
-  // Create the contact
-  createContact();
-});
+// Gère la modification d'un contact
+function editContact(index) {
+    // Récupère le contact à modifier
+    const contact = contacts[index];
+  
+    // Remplit le formulaire avec les données du contact
+    postnom.value = contact.postnom;
+    nom.value = contact.nom;
+    tel.value = contact.tel;
+    groupe.value = contact.groupe;
+    email.value = contact.email;
+    detail.value = contact.detail;
+  
+    // Vide la zone de dépôt
+    dropzone.innerHTML = '<p>Glissez et déposez vos fichiers ici</p>';
+  
+    // Remplit la zone de dépôt avec les images du contact
+    contact.images.forEach((imageSrc) => {
+      const image = document.createElement('img');
+      image.src = imageSrc;
+      dropzone.appendChild(image);
+    });
 
-function saveContact(contactDiv) {
-  // Get the edited contact information and image
-  var name = document.getElementById("edit-nom").value;
-  var postnom = document.getElementById("edit-postnom").value;
-  var phone = document.getElementById("edit-tel").value;
-  var group = document.getElementById("edit-groupe").value;
-  var email = document.getElementById("edit-email").value;
-  var details = document.getElementById("edit-details").value;
-  var image = document.getElementById("edit-image").files[0];
+    // Modifie la fonction de soumission du formulaire pour mettre à jour le contact existant au lieu d'en créer un nouveau
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-  // Read the image file and get the data as a base64-encoded string
-  var reader = new FileReader();
-  reader.readAsDataURL(image);
-  reader.onloadend = function() {
-    // Get the image data as a base64-encoded string
-    var imageData = reader.result;
+     // Met à jour les valeurs du contact avec celles du formulaire
+     contact.postnom = postnom.value;
+     contact.nom = nom.value;
+     contact.tel = tel.value;
+     contact.groupe = groupe.value;
+     contact.email = email.value;
+     contact.detail = detail.value;
+ 
+     // Récupère les images déposées dans la zone de dépôt
+     const images = dropzone.querySelectorAll('img');
+ 
+     // Met à jour les images du contact
+     contact.images =  contact.images.src;
+   
+     // Vide la zone de dépôt
+     dropzone.innerHTML = '<p>Glissez et déposez vos fichiers ici</p>';
+ 
+     // Réinitialise le formulaire
+     form.reset();
+ 
+     // Met à jour la liste de contacts
+     updateContactList();
+   });
+ }
 
-    // Update the contact div with the new information and image
-    contactDiv.innerHTML = `
-      <div>
-        <p>Nom: ${name}</p>
-        <p>Postnom: ${postnom}</p>
-        <p>Téléphone: ${phone}</p>
-        <p>Groupe: ${group}</p>
-        <p>Email: ${email}</p>
-        <p>Détails: ${details}</p>
-        <img src="${imageData}" alt="Image du contact">
-        <button type="button" class="edit-button">Modifier</button>
-        <button type="button" class="delete-button">Supprimer</button>
+ // Met à jour l'affichage de la liste de contacts
+function updateContactList() {
+    // Vide la liste de contacts
+    
+    contactContainer.innerHTML = '';
+  
+    // Pour chaque contact, crée un élément HTML et l'ajoute à la liste
+    contacts.forEach((contact, index) => {
+      const contactEl = document.createElement('div');
+      contactEl.classList.add('contact');
+
+      contactEl.innerHTML = `
+      <div class="images">
+        ${contact.images.map((imageSrc) => `<img src="${imageSrc}" alt="">`).join('')}
       </div>
-    `;
 
-    // Save the updated contact information to local storage
-    var contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-    var index = contacts.findIndex(function(c) {
-      return c.name === name && c.postnom === postnom && c.phone === phone && c.group === group && c.email === email && c.details === details && c.imageData === imageData;
+      <div class="firstgoup">
+
+          <div class="actions">
+            <div><p>${contact.postnom} ${contact.nom} ${contact.groupe}</p></div>
+            <div>
+              <button onclick="editContact(${index})">Modifier</button>
+              <button onclick="deleteContact(${index})">Supprimer</button>
+            </div>
+          </div>
+
+        <div class="secondtgoup">
+          <p>${contact.tel}</p>
+          <p>${contact.email}</p>
+          <p>${contact.detail}</p>
+        </div>
+
+      </div>
+      `;
+  
+      contactContainer.appendChild(contactEl);
     });
-    if (index !== -1) {
-      contacts[index] = { name: name, postnom: postnom, phone: phone, group: group, email: email, details : details, imageData: imageData };
-      localStorage.setItem("contacts", JSON.stringify(contacts));
-    }
+  }
 
-    // Add an event listener to the contact div to allow it to be edited again
-    contactDiv.addEventListener("click", function(event) {
-      if (event.target.classList.contains("edit-button")) {
-        editContact(contactDiv);
-      } else if (event.target.classList.contains("delete-button")) {
-        deleteContact(contactDiv);
+  // Gère le glisse-dépose de fichiers
+dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+  
+    // Pour chaque fichier, crée une image et l'ajoute à la zone de dépôt
+    // for (let i = 0; i < files.length; i++) {
+    //   const file = files[i];
+
+    // Vérifie que le fichier est une image
+    if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+  
+        // Quand l'image est chargée, crée une image et l'ajoute à la zone de dépôt
+        reader.addEventListener('load', () => {
+          //const image = document.createElement('img');
+          // image.src = reader.result;
+          const image = `<img src="${reader.result}" alt="">`;
+          dropzone.innerHTML = image;
+        });
+  
+        // Lit les données de l'image
+        reader.readAsDataURL(file);
       }
     });
-  };
-}
 
-
+  dropzone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
+  
+  // Affiche la liste de contacts initiale
+  updateContactList();
