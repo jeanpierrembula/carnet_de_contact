@@ -14,7 +14,6 @@ const dropzone = document.querySelector('.dropzone');
 // Récupère l'élément où les contacts seront affichés
 const contactContainer = document.getElementById('contactContainer')
 
-
 // Gère la soumission du formulaire
 form.addEventListener('submit', (e) => {
     e.preventDefault();
