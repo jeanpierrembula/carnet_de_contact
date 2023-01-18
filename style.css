@@ -128,53 +128,88 @@ padding-left: 10px;
   color: #555555;
 }
 
-.form-actions .btn {
-  width: 150px;
-  height: 50px;
-  margin-top: 20px;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  font-family: 'Poppins';
-}
+/* Le responsive  */
+/* Médias queries */
+/* Ajoutez ceci en haut de votre fichier CSS */
+@media only screen and (max-width: 480px) {
+  /* Ajustez la taille et la mise en forme de l'en-tête */
+  .header {
+    width: auto;
+    height: 50px;
+  }
+  .header h1 {
+    font-size: 16px;
+    line-height: 24px;
+    left: 20px;
+  }
 
-.btn-primary {
-  background: #0880D6;
-}
+  /* Ajustez la disposition et la taille des éléments principaux */
+  .main {
+    flex-direction: column;
+    width: auto;
+    height: auto;
+    top: 50px;
+    left: 20px;
+    right: 20px;
+  }
 
-.btn-secondary {
-  background: red;
-}
+  /* Ajustez la taille et la mise en forme de la partie gauche */
+  .partie_gauche {
+    width: auto;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .partie_gauche h2 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .label {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .input {
+    height: 40px;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 12px;
+  }
+  .textarea {
+    width: auto;
+    height: auto;
+  }
+  .textarea label {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  .textarea textarea {
+    height: 160px;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 12px;
+  }
+  #image-container {
+    height: 160px;
+  }
+  #image-container label {
+    font-size: 12px;
+    line-height: 18px;
+  }
+  #image-container input {
+    width: 100%;
+    height: 40px;
+  }
+  #drop-zone {
+    font-size: 12px;
+    line-height: 18px;
+  }
 
-.contactContainer {
-  max-height: fit-content;
-}
-
-
-.contact {
-  display: flex;
-  flex-direction: row;
-  gap: 45px;
-  padding: 20px;
-} 
-
-.actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: red;
-  width: 100%;
-}
-
-.images {
-  width: 40%; 
-}
-
-.images img {
-  width: 40%;
-  border-radius: 50%;
-}
-
-#imglink {
-  display: none;
+  /* Ajustez la taille et la mise en forme de la partie droite */
+  .partie_droite {
+    width: auto;
+    height: auto;
+  }
+  .partie_droite h2 {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }
