@@ -1,75 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Répertoire des contacts </title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>replit</title>
+  <link href="styles.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
-  <header class="header">
-    <h1>Répertoire des contacts </h1>
-  </header>
-
-  <main class="main">
-    <form class="partie_gauche">
-      <h2>Formulaire de contact</h2>
-
-      <div>
-        <label class="label" for="nom">Nom</label><br>
-        <input class="input" type="text" id="nom" name="nom"><br>
-      </div>
-      
-      <div>
-        <label class="label" for="postnom">Postnom</label><br>
-        <input class="input" type="text" id="postnom" name="postnom"><br>
-      </div>
-      
-      <div>
-        <label class="label" for="tel">Téléphone</label><br>
-        <input class="input" type="tel" id="tel" name="tel"><br>
-      </div>
-
-      <div>
-        <label class="label" for="groupe">Groupe</label><br>
-        <input class="input" type="text" id="groupe" name="email"><br>
-      </div>
-      
-      <div>
-        <label class="label" for="myemail">email</label><br>
-        <input class="input" type="email" id="myemail" name="email"><br>
-      </div>
-      
-      <div class="textarea">
-        <label class="label" for="detail">Détails</label><br>
-        <textarea id="detail" name="detail"></textarea><br>
-      </div>
-      
-      <div id="image-container">
-        <label for="myimage">image :</label><br>
-        <input type="file" id="myimage" name="image">
-        <div id="dropzone">Ou glisser-déposer une image ici</div>
-      </div>
-      
-      <div class="button">
-        <button type="submit" class="submit">Créer</button>
-        <button type="reset" class="reset">Réinitialiser</button>
-      </div>
-  </form>
-  <div class="partie_droite">
-    <h2>
-      Liste des contacts
-    </h2>
-    <div class="contacts">
-
+      <header>
+        <nav class="navBar">
+            <h1>carnet de contact</h1>
+        </nav>
+    </header>
+    <main class="mainContent">
+        <form class="form" id="form">
+            <h2>Formulaire de contact</h2>
+            <div class="form-group">
+                <label for="postnom">Prénom</label>
+                <input type="text" id="postnom" name="postnom" required>
+              </div>
+            <div class="form-group">
+              <label for="nom">Nom</label>
+              <input type="text" id="nom" name="nom" required>
             </div>
+            <div class="form-group">
+              <label for="tel">Téléphone</label>
+              <input type="text" id="tel" name="tel" maxlength="10" required>
+            </div>
+            <div class="form-group">
+              <label for="groupe">Groupe</label>
+              <select id="groupe" name="groupe" required>
+                <option value="famille">Famille</option>
+                <option value="amis">Amis</option>
+                <option value="travail" selected>Travail</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="detail">Bio</label>
+              <textarea id="detail" name="detail"></textarea>
+            </div>
+            <div class="dropzone">
+                <input type="file" id="filein" hidden>
+                <p>
+                  Glissez et déposez vos fichiers ici
+                </p>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Créer</button>
+              <button type="reset" class="btn btn-secondary">Réinitialiser</button>
+            </div>
+          </form>
+
+          <div class="contactSide">
+            <h2>Liste des contacts</h2>
+            <div id="contactContainer"></div>
           </div>
-          
     </main>
+  <script src="script.js"></script>
 
-    <script src="app.js">
-
-    </script>
+ <!--
+  This script places a badge on your repl's full-browser view back to your repl's cover
+  page. Try various colors for the theme: dark, light, red, orange, yellow, lime, green,
+  teal, blue, blurple, magenta, pink!
+  -->
+  <!-- <script src="https://replit.com/public/js/replit-badge.js" theme="blue" defer></script>  -->
 </body>
+
 </html>

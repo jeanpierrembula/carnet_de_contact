@@ -1,54 +1,177 @@
-// Fonction pour ajouter un contact à l'annuaire
+let contacts = [];
+let lisfOfTel = [];
+let listOfEmail = [];
+let editingIndex = null; // variable pour stocker l'index du contact en cours d'édition
+const error = document.createElement("p");
 
-function addContact(nom, postnom, tel, groupe, myemail, detail, myimage) {
-    // Creation de la structure html de la partie contact 
-    const htmlStructure = `
-    <div class="contact">
-      <img src="${myimage}" alt="Image de ${nom} ${postnom}">
-      <h3>${nom} ${postnom}</h3>
-      <p>${tel}</p>
-      <p>${groupe}</p>
-      <p>${myemail}</p>
-      <p>${detail}</p>
-      <button class="edit-button">Modifier</button>
-      <button class="delete-button">Supprimer</button>
-    </div>
-  `;
+// Get the form and contact container elements
+const form = document.getElementById("form");
+const contactContainer = document.getElementById("contactContainer");
 
-  const contactsDiv = document.getElementById('contacts');
-  contactsDiv.innerHTML += contactHTML;
-  console.log(htmlStructure)
+//Ajouter un message d'erreur
+const errortel = document.createElement("p");
+
+//mail validation
+function isValidEmail(email) {
+  let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
 }
 
-  // Gère le glisse-dépose de fichiers
-dropzone.addEventListener('drop', (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-  
-    // Pour chaque fichier, crée une image et l'ajoute à la zone de dépôt
-    // for (let i = 0; i < files.length; i++) {
-    //   const file = files[i];
+//phone number validation
+function isValidTel(tel) {
+  let pattern = /^(080|081|082|083|084|085|090|097|099)\d{7}$/;
+  return (pattern.test(tel))
+}
 
-    // Vérifie que le fichier est une image
-    if (file.type.startsWith('image/')) {
-        const reader = new FileReader();
-  
-        // Quand l'image est chargée, crée une image et l'ajoute à la zone de dépôt
-        reader.addEventListener('load', () => {
-          //const image = document.createElement('img');
-          // image.src = reader.result;
-          const image = `<img src="${reader.result}" alt="">`;
-          dropzone.innerHTML = image;
-        });
-  
-        // Lit les données de l'image
-        reader.readAsDataURL(file);
-      }
+
+
+// Get form data
+function getFormData() {
+  const postnom = document.getElementById("postnom").value;
+  const nom = document.getElementById("nom").value;
+  const tel = document.getElementById("tel").value;
+  const groupe = document.getElementById("groupe").value;
+  const email = document.getElementById("email").value;
+  const detail = document.getElementById("detail").value;
+
+  // Create a new contact object
+  const newContact = {
+    postnom: postnom,
+    nom: nom,
+    tel: tel,
+    groupe: groupe,
+    email: email,
+    detail: detail,
+  };
+
+
+  if (!postnom || !nom || !tel || !groupe || !email) {
+    error.innerHTML = "All fields are required";
+    error.style.color = "red";
+    error.style.marginLeft = "5%";
+    error.id = "error-message";
+    document.getElementById("form").appendChild(error);
+  }
+
+  if (editingIndex === null) {
+    if (listOfEmail.includes(email) || !(newContact.email) || (lisfOfTel.includes(tel)) || !(newContact.tel)) {
+      // Si l'adresse email est invalide, changer la bordure en rouge
+      emailInput.style.borderColor = 'red';
+      //Ajouter un message d'erreur
+      error.innerHTML = "Adresse e-mail ou Numero de telephone existant";
+      error.style.color = "red";
+      error.style.marginLeft = "5%";
+      error.id = "email-error";
+      document.getElementById("form").appendChild(error);
+   } else{
+    contacts.push(newContact);
+    lisfOfTel.push(newContact["tel"])
+    listOfEmail.push(newContact["email"])
+    console.log(listOfEmail)
+     // Si l'adresse email est valide, changer la bordure en vert
+     emailInput.style.border = 'black';
+     // Supprimer le message d'erreur
+     const error = document.getElementById("email-error")
+     error?.remove();
+    }
+    
+  } else {
+    contacts[editingIndex] = newContact;
+  }
+  editingIndex = null;
+}
+
+// Render the contacts in the contact container
+function renderContacts() {
+  contactContainer.innerHTML = "";
+  for (let i = 0; i < contacts.length; i++) {
+    // Create a new contact element
+    const contact = document.createElement("div");
+    contact.classList.add("contact");
+    contact.innerHTML = `
+    <div class="contacimg"></div>
+    <div class="contactdesc">
+      <div class="groupe1">
+      <p>${contacts[i].postnom} ${contacts[i].nom} ${contacts[i].groupe}</p>
+      <p><button class="edit-btn">Edit</button> <button class="delete-btn">Delete</button></p>
+      </div>
+      <p>${contacts[i].tel}</p>
+      <p>${contacts[i].email}</p>
+      <p>${contacts[i].detail}</p>
+    </div>
+    `;
+    // Append the contact element to the container
+    contactContainer.appendChild(contact);
+
+    // handle delete button 
+    const deleteBtn = contact.querySelector(".delete-btn");
+    deleteBtn.addEventListener("click", (e) => {
+      // remove the contact from the array
+      contacts.splice(i, 1);
+      renderContacts();
     });
 
-  dropzone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-  });
-  
-  // Affiche la liste de contacts initiale
-  updateContactList();
+    // handle edit button 
+    const editBtn = contact.querySelector(".edit-btn");
+    editBtn.addEventListener("click", (e) => {
+      // populate the form with the contact data
+      document.getElementById("postnom").value = contacts[i].postnom;
+      document.getElementById("nom").value = contacts[i].nom;
+      document.getElementById("tel").value = contacts[i].tel;
+      document.getElementById("groupe").value = contacts[i].groupe;
+      document.getElementById("email").value = contacts[i].email;
+      document.getElementById("detail").value = contacts[i].detail;
+
+      editingIndex = i; // enregistrer l'index du contact en cours d'édition
+    });
+  }
+}
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  getFormData();
+  renderContacts();
+  form.reset()
+});
+
+const emailInput = document.querySelector('#email');
+emailInput.addEventListener('change', function(){
+  // Vérifier si le contenu du champ email correspond à un format valide d'adresse email
+  if(!isValidEmail(emailInput.value)){
+      // Si l'adresse email est invalide, changer la bordure en rouge
+      emailInput.style.borderColor = 'red';
+      //Ajouter un message d'erreur
+      error.innerHTML = "Veuillez saisir une adresse e-mail valide";
+      error.style.color = "red";
+      error.style.marginLeft = "5%";
+      error.id = "email-error";
+      document.getElementById("form").appendChild(error);
+  }else{
+      // Si l'adresse email est valide, changer la bordure en noir
+      emailInput.style.border = 'black';
+      // Supprimer le message d'erreur
+      const error = document.getElementById("email-error")
+      error?.remove();
+  }
+});
+// Cibler le champ téléphone
+const phoneInput = document.querySelector('#tel').value;
+// Écouter l'événement blur
+phoneInput.addEventListener('change', function(){
+    // Vérifier si la valeur saisie est un nombre
+    if(!isValidTel(phoneInput)){
+        // Si la valeur saisie n'est pas un nombre, changer la bordure en rouge
+        phoneInput.style.borderColor = 'red';
+        errortel.innerHTML = "Ce n'est pas un numéro de téléphone valide";
+        errortel.style.color = "red";
+        errortel.style.marginLeft = "5%";
+        errortel.id = "phone-error";
+        document.getElementById("form").appendChild(errortel);
+     } else{
+    // Si l'adresse email est valide, changer la bordure en noir
+    emailInput.style.border = 'black';
+    // Supprimer le message d'erreur
+    const errortel = document.getElementById("phone-error")
+    errortel?.remove();
+}
+});

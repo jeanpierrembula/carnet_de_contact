@@ -1,6 +1,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .navBar {
@@ -128,88 +129,113 @@ padding-left: 10px;
   color: #555555;
 }
 
-/* Le responsive  */
-/* Médias queries */
-/* Ajoutez ceci en haut de votre fichier CSS */
-@media only screen and (max-width: 480px) {
-  /* Ajustez la taille et la mise en forme de l'en-tête */
-  .header {
-    width: auto;
-    height: 50px;
-  }
-  .header h1 {
-    font-size: 16px;
-    line-height: 24px;
-    left: 20px;
+.form-actions .btn {
+  width: 150px;
+  height: 50px;
+  margin-top: 20px;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Poppins';
+}
+
+.btn-primary {
+  background: #0880D6;
+}
+
+.btn-secondary {
+  background: red;
+}
+
+.contact {
+  display: flex;
+  flex-direction: row-reverse;
+  border: 1px solid #C4C4C4;
+  /* gap: 45px; */
+  padding: 20px;
+  font-weight: 900;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+.contactdesc {
+  width: 60%;
+}
+.contactimg {
+  width: 30%;
+}
+
+.contact p {
+  padding: 4px;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: red;
+  width: 100%;
+}
+
+.images {
+  width: 40%; 
+}
+
+.images img {
+  width: 40%;
+  border-radius: 50%;
+}
+
+div .groupe1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  font-weight: 900;
+}
+
+@media screen and (max-width: 950px) {
+  .mainContent {
+      display: flex;
+      flex-direction: column;
   }
 
-  /* Ajustez la disposition et la taille des éléments principaux */
-  .main {
-    flex-direction: column;
-    width: auto;
-    height: auto;
-    top: 50px;
-    left: 20px;
-    right: 20px;
+  .form, .contactSide {
+      width: 98%;
   }
 
-  /* Ajustez la taille et la mise en forme de la partie gauche */
-  .partie_gauche {
-    width: auto;
-    height: auto;
-    margin-bottom: 20px;
-  }
-  .partie_gauche h2 {
-    font-size: 16px;
-    line-height: 24px;
-  }
-  .label {
-    font-size: 12px;
-    line-height: 18px;
-  }
-  .input {
-    height: 40px;
-    font-size: 12px;
-    line-height: 18px;
-    padding: 12px;
-  }
-  .textarea {
-    width: auto;
-    height: auto;
-  }
-  .textarea label {
-    font-size: 12px;
-    line-height: 18px;
-  }
-  .textarea textarea {
-    height: 160px;
-    font-size: 12px;
-    line-height: 18px;
-    padding: 12px;
-  }
-  #image-container {
-    height: 160px;
-  }
-  #image-container label {
-    font-size: 12px;
-    line-height: 18px;
-  }
-  #image-container input {
-    width: 100%;
-    height: 40px;
-  }
-  #drop-zone {
-    font-size: 12px;
-    line-height: 18px;
+  .contactSide {
+      margin-top: 20px;
+      margin-left: 0;
   }
 
-  /* Ajustez la taille et la mise en forme de la partie droite */
-  .partie_droite {
-    width: auto;
-    height: auto;
+    .navBar h1 {
+      font-size: 26px;
   }
-  .partie_droite h2 {
+
+  .form h2, .contactSide h2 {
+      font-size: 20px;
+  }
+
+  .form-actions {
+      align-items: center;
+      justify-content: center;
+  }
+
+  input, label, textare, option {
     font-size: 16px;
-    line-height: 24px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .navBar h1 {
+      color: white;
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 900;
+      font-size: 1.8em;
+      line-height: 30px;
+      padding: 30px;
+      text-align: center;
   }
 }

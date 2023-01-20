@@ -3,12 +3,19 @@
     "development"
   ],
   "hints": {
+<<<<<<< HEAD
     "compat-api/css": [
       "default",
       {
         "ignore": [
           "max-height: fit-content"
         ]
+=======
+    "axe/language": [
+      "default",
+      {
+        "html-has-lang": "off"
+>>>>>>> parent of c891cae (	modified:   index.html)
       }
     ]
   }
