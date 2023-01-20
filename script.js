@@ -17,10 +17,10 @@ function isValidEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
-//phone number validation
+// Fonction pour valider le numéro de téléphone
 function isValidTel(tel) {
   let pattern = /^(080|081|082|083|084|085|090|097|099)\d{7}$/;
-  return (pattern.test(tel))
+  return pattern.test(tel);
 }
 
 
@@ -156,10 +156,13 @@ emailInput.addEventListener('change', function(){
 });
 // Cibler le champ téléphone
 const phoneInput = document.querySelector('#tel');
-// Écouter l'événement blur
-phoneInput.addEventListener('change', function(){
-    // Vérifier si la valeur saisie est un nombre
-    if(!isValidTel(phoneInput)){
+// Déclarer un élément pour afficher l'erreur
+// const errortel = document.createElement('p');
+
+// Écouter l'événement input
+phoneInput.addEventListener('input', function(){
+    // Vérifier si la valeur saisie est un nombre valide
+    if(!isValidTel(phoneInput.value)){
         // Si la valeur saisie n'est pas un nombre, changer la bordure en rouge
         phoneInput.style.borderColor = 'red';
         errortel.innerHTML = "Ce n'est pas un numéro de téléphone valide";
@@ -171,7 +174,7 @@ phoneInput.addEventListener('change', function(){
     // Si l'adresse email est valide, changer la bordure en noir
     phoneInput.style.borderColor = 'black';
     // Supprimer le message d'erreur
-    const errortel = document.getElementById("phone-error")
+    const errortel = document.getElementById("phone-error");
     errortel?.remove();
-}
+    }
 });
