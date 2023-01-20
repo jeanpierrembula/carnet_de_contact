@@ -148,14 +148,14 @@ emailInput.addEventListener('change', function(){
       document.getElementById("form").appendChild(error);
   }else{
       // Si l'adresse email est valide, changer la bordure en noir
-      emailInput.style.border = 'black';
+      emailInput.style.borderColor = 'black';
       // Supprimer le message d'erreur
       const error = document.getElementById("email-error")
       error?.remove();
   }
 });
 // Cibler le champ téléphone
-const phoneInput = document.querySelector('#tel').value;
+const phoneInput = document.querySelector('#tel');
 // Écouter l'événement blur
 phoneInput.addEventListener('change', function(){
     // Vérifier si la valeur saisie est un nombre
@@ -169,7 +169,7 @@ phoneInput.addEventListener('change', function(){
         document.getElementById("form").appendChild(errortel);
      } else{
     // Si l'adresse email est valide, changer la bordure en noir
-    emailInput.style.border = 'black';
+    phoneInput.style.borderColor = 'black';
     // Supprimer le message d'erreur
     const errortel = document.getElementById("phone-error")
     errortel?.remove();
