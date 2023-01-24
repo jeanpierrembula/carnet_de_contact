@@ -10,6 +10,8 @@ const contactContainer = document.getElementById("contactContainer");
 
 //Ajouter un message d'erreur
 const errortel = document.createElement("p");
+const nameError = document.createElement("p") 
+const firstNameError = document.createElement("p") 
 
 //mail validation
 function isValidEmail(email) {
@@ -21,6 +23,17 @@ function isValidEmail(email) {
 function isValidTel(tel) {
   let pattern = /^(080|081|082|083|084|085|090|097|099)\d{7}$/;
   return pattern.test(tel);
+}
+
+// Fonction pour valider le nom
+function isValidName(nom) {
+  let nm = /^[a-zA-Z]{3,50}$/;
+  return nm.test(nom);
+}
+
+function isFirstNameValid(firstName) {
+  let rn = /^[a-zA-Z]{3,50}$/;
+  return rn.test(firstName)
 }
 
 
@@ -53,9 +66,10 @@ function getFormData() {
     document.getElementById("form").appendChild(error);
   }
 
+  // || !(newContact.email) || (lisfOfTel.includes(tel)) || !(newContact.tel) || !(isValidName)
+
   if (editingIndex === null) {
-    if (listOfEmail.includes(email) || !(newContact.email) || (lisfOfTel.includes(tel)) || !(newContact.tel)) {
-      // Si l'adresse email est invalide, changer la bordure en rouge
+    if (listOfEmail.includes(email) || !isFirstNameValid(email)){
       emailInput.style.borderColor = 'red';
       //Ajouter un message d'erreur
       error.innerHTML = "Adresse e-mail ou Numero de telephone existant";
@@ -135,7 +149,7 @@ form.addEventListener("submit", (e) => {
 });
 
 const emailInput = document.querySelector('#email');
-emailInput.addEventListener('change', function(){
+emailInput.addEventListener('input', function(){
   // Vérifier si le contenu du champ email correspond à un format valide d'adresse email
   if(!isValidEmail(emailInput.value)){
       // Si l'adresse email est invalide, changer la bordure en rouge
@@ -145,7 +159,7 @@ emailInput.addEventListener('change', function(){
       error.style.color = "red";
       error.style.marginLeft = "5%";
       error.id = "email-error";
-      document.getElementById("form").appendChild(error);
+      emailInput.parentNode.appendChild(error);
   }else{
       // Si l'adresse email est valide, changer la bordure en noir
       emailInput.style.borderColor = 'black';
@@ -166,10 +180,11 @@ phoneInput.addEventListener('input', function(){
         // Si la valeur saisie n'est pas un nombre, changer la bordure en rouge
         phoneInput.style.borderColor = 'red';
         errortel.innerHTML = "Ce n'est pas un numéro de téléphone valide";
-        errortel.style.color = "red";
+        errortel.style.borderColor = "red";
+        errortel.style.color="red"
         errortel.style.marginLeft = "5%";
         errortel.id = "phone-error";
-        document.getElementById("form").appendChild(errortel);
+        phoneInput.parentNode.appendChild(errortel);
      } else{
     // Si l'adresse email est valide, changer la bordure en noir
     phoneInput.style.borderColor = 'black';
@@ -178,3 +193,39 @@ phoneInput.addEventListener('input', function(){
     errortel?.remove();
     }
 });
+
+
+const nameInput = document.querySelector('#nom')
+
+nameInput.addEventListener('input', function(){
+  if (!isValidName(nameInput.value)) {
+    nameError.innerHTML = "le nom doit être composé de 3 à 5 caractères"
+    nameInput.style.borderColor = "red";
+    nameError.style.color = "red"
+    nameError.style.marginLeft = "5%";
+    nameError.id = "name-error";
+    nameInput.parentNode.appendChild(nameError);
+  } else {
+    nameInput.style.borderColor = 'black';
+    const error = document.getElementById("name-error");
+    error?.remove();
+  }
+})
+
+
+const firstName = document.querySelector("#postnom")
+
+firstName.addEventListener("input", function(){
+  if (!isFirstNameValid(firstName.value)){
+    firstNameError.innerHTML = "le prénom doit être composé de 3 à 5 caractères"
+    firstNameError.style.color = "red"
+    firstName.style.borderColor = "red"
+    firstNameError.style.marginLeft = "5%";
+    firstNameError.id = "firstName";
+    firstName.parentNode.appendChild(firstNameError)
+  } else {
+    firstName.style.borderColor = 'black';
+    const error = document.getElementById("firstName");
+    error?.remove();
+  }
+})

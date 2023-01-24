@@ -2,6 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Poppins';
+  /* scroll-behavior: smooth; */
 }
 
 .navBar {
@@ -15,7 +17,7 @@
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 900;
-  font-size: 2em;
+  font-size: 1.6em;
   line-height: 30px;
   padding: 30px;
 }
@@ -74,16 +76,16 @@ padding-left: 10px;
 
 .form-group select{
   color: black;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .form-group option{
-  font-size: 18;
+  font-size: 16px;
   color: #0880D6;
 }
 
 .form-group label {
-  font-size: 18px;
+  font-size: 16px;
   color: #0880D6;
 }
 
@@ -134,7 +136,7 @@ padding-left: 10px;
   height: 50px;
   margin-top: 20px;
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   font-family: 'Poppins';
 }
@@ -210,11 +212,11 @@ div .groupe1 {
   }
 
     .navBar h1 {
-      font-size: 26px;
+      font-size: 23px;
   }
 
   .form h2, .contactSide h2 {
-      font-size: 20px;
+      font-size: 18px;
   }
 
   .form-actions {
@@ -223,7 +225,7 @@ div .groupe1 {
   }
 
   input, label, textare, option {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 
@@ -233,7 +235,7 @@ div .groupe1 {
       font-family: 'Poppins';
       font-style: normal;
       font-weight: 900;
-      font-size: 1.8em;
+      font-size: 1.5em;
       line-height: 30px;
       padding: 30px;
       text-align: center;
