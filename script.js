@@ -36,8 +36,6 @@ function isFirstNameValid(firstName) {
   return rn.test(firstName)
 }
 
-
-
 // Get form data
 function getFormData() {
   const postnom = document.getElementById("postnom").value;
@@ -47,53 +45,112 @@ function getFormData() {
   const email = document.getElementById("email").value;
   const detail = document.getElementById("detail").value;
 
-  // Create a new contact object
-  const newContact = {
-    postnom: postnom,
-    nom: nom,
-    tel: tel,
-    groupe: groupe,
-    email: email,
-    detail: detail,
-  };
-
-
-  if (!postnom || !nom || !tel || !groupe || !email) {
-    error.innerHTML = "All fields are required";
-    error.style.color = "red";
-    error.style.marginLeft = "5%";
-    error.id = "error-message";
-    document.getElementById("form").appendChild(error);
-  }
-
-  // || !(newContact.email) || (lisfOfTel.includes(tel)) || !(newContact.tel) || !(isValidName)
-
-  if (editingIndex === null) {
-    if (listOfEmail.includes(email) || !isFirstNameValid(email)){
+    // Create a new contact object
+    const newContact = {
+      postnom: postnom,
+      nom: nom,
+      tel: tel,
+      groupe: groupe,
+      email: email,
+      detail: detail,
+    };
+  
+    // Validate the form data
+    if (!postnom || !nom || !tel || !groupe || !email) {
+      error.innerHTML = "All fields are required";
+      error.style.color = "red";
+      error.style.marginLeft = "5%";
+      error.id = "error-message";
+      form.appendChild(error);
+      return;
+    }
+  
+    if (!isValidEmail(email)) {
       emailInput.style.borderColor = 'red';
       //Ajouter un message d'erreur
-      error.innerHTML = "Adresse e-mail ou Numero de telephone existant";
+      error.innerHTML = "Adresse e-mail non valide";
       error.style.color = "red";
       error.style.marginLeft = "5%";
       error.id = "email-error";
-      document.getElementById("form").appendChild(error);
-   } else{
-    contacts.push(newContact);
-    lisfOfTel.push(newContact["tel"])
-    listOfEmail.push(newContact["email"])
-    console.log(listOfEmail)
-     // Si l'adresse email est valide, changer la bordure en vert
-     emailInput.style.border = 'black';
-     // Supprimer le message d'erreur
-     const error = document.getElementById("email-error")
-     error?.remove();
+      form.appendChild(error);
+      return;
+    }
+  
+    if (!isValidTel(tel)) {
+      telInput.style.borderColor = 'red';
+      //Ajouter un message d'erreur
+      errortel.innerHTML = "Numero de telephone non valide";
+      errortel.style.color = "red";
+      errortel.style.marginLeft = "5%";
+      errortel.id = "tel-error";
+      form.appendChild(errortel);
+      return;
     }
     
-  } else {
-    contacts[editingIndex] = newContact;
+    if (!isValidName(nom)) {
+      nameInput.style.borderColor = 'red';
+      //Ajouter un message d'erreur
+      nameError.innerHTML = "Nom non valide";
+      nameError.style.color = "red";
+      nameError.style.marginLeft = "5%";
+      nameError.id = "name-error";
+      form.appendChild(nameError);
+      return;
+    }
+  
+    if (!isFirstNameValid(postnom)) {
+      firstNameInput.style.borderColor = 'red';
+      //Ajouter un message d'erreur
+      firstNameError.innerHTML = "Prénom non valide";
+      firstNameError.style.color = "red";
+      firstNameError.style.marginLeft = "5%";
+      firstNameError.id = "firstName-error";
+      form.appendChild(firstNameError);
+      return;
+    }
+  
+    if (editingIndex === null) {
+      if (listOfEmail.includes(email) || (lisfOfTel.includes(tel))) {
+        emailInput.style.borderColor = 'red';
+        //Ajouter un message d'erreur
+        error.innerHTML = "Adresse e-mail ou Numero de telephone existant";
+        error.style.color = "red";
+        error.style.marginLeft = "5%";
+        error.id = "email-error";
+        form.appendChild(error);
+        return;
+     }    else {
+      contacts.push(newContact);
+      lisfOfTel.push(newContact["tel"])
+      listOfEmail.push(newContact["email"])
+      console.log(listOfEmail)
+       // Si l'adresse email est valide, changer la bordure en vert
+       emailInput.style.borderColor = 'green';
+       nameInput.style.borderColor = 'green';
+       firstNameInput.style.borderColor = 'green';
+       telInput.style.borderColor = 'green';
+       // Supprimer le message d'erreur
+       const error = document.getElementById("email-error");
+       error?.remove();
+       // Clear form
+       form.reset();
+       // Update the contact list
+       updateContactList();
+      }
+    } else {
+      // Update the existing contact
+      contacts[editingIndex] = newContact;
+      // Clear form
+      form.reset();
+      // Update the contact list
+      updateContactList();
+      // Reset editing index
+      editingIndex = null;
+    }
   }
-  editingIndex = null;
-}
+  
+  
+  
 
 // Render the contacts in the contact container
 function renderContacts() {
@@ -114,13 +171,12 @@ function renderContacts() {
       <p>${contacts[i].detail}</p>
     </div>
     `;
-    // Append the contact element to the container
+
     contactContainer.appendChild(contact);
 
-    // handle delete button 
     const deleteBtn = contact.querySelector(".delete-btn");
     deleteBtn.addEventListener("click", (e) => {
-      // remove the contact from the array
+    
       contacts.splice(i, 1);
       renderContacts();
     });
@@ -128,7 +184,7 @@ function renderContacts() {
     // handle edit button 
     const editBtn = contact.querySelector(".edit-btn");
     editBtn.addEventListener("click", (e) => {
-      // populate the form with the contact data
+      
       document.getElementById("postnom").value = contacts[i].postnom;
       document.getElementById("nom").value = contacts[i].nom;
       document.getElementById("tel").value = contacts[i].tel;
@@ -136,7 +192,7 @@ function renderContacts() {
       document.getElementById("email").value = contacts[i].email;
       document.getElementById("detail").value = contacts[i].detail;
 
-      editingIndex = i; // enregistrer l'index du contact en cours d'édition
+      editingIndex = i;
     });
   }
 }
@@ -145,7 +201,6 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   getFormData();
   renderContacts();
-  form.reset()
 });
 
 const emailInput = document.querySelector('#email');
