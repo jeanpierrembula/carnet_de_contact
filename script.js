@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 let contacts = [];
 let lisfOfTel = [];
 let listOfEmail = [];
@@ -246,41 +247,247 @@ phoneInput.addEventListener('input', function(){
     // Supprimer le message d'erreur
     const errortel = document.getElementById("phone-error");
     errortel?.remove();
+=======
+// Récupérer les éléments du formulaire
+const prenom = document.getElementById("prenom");
+const nom = document.getElementById("nom");
+const telephone = document.getElementById("telephone");
+const groupe = document.getElementById("groupe");
+const email = document.getElementById("email");
+const bio = document.getElementById("bio");
+const image = document.getElementById("input-image");
+const buttonCreer = document.getElementById("buttonCreer");
+const buttonRenit = document.getElementById("buttonRenit");
+let selectedContact;
+
+// Ajouter un écouteur d'événement sur le bouton "Créer"
+buttonCreer.addEventListener("click", function (event) {
+  event.preventDefault(); // empêche la soumission du formulaire
+
+  // Récupérer les valeurs des champs du formulaire
+  const prenomValue = prenom.value;
+  const nomValue = nom.value;
+  const telephoneValue = telephone.value;
+  const groupeValue = groupe.value;
+  const emailValue = email.value;
+  const bioValue = bio.value;
+
+  // Créer une nouvelle div qui va contenir les informations du contact
+  const newContact = document.createElement("div");
+  newContact.classList.add("contact");
+  const contactsList = document.querySelector(".contacts-list");
+  contactsList.appendChild(newContact);
+
+  // Créer une div pour afficher la photo
+  const contactImage = document.createElement("div");
+  contactImage.classList.add("contact-image");
+  newContact.appendChild(contactImage);
+
+  // Créer un element du type img qui sera dans la div de class contact-image
+  const contactPhoto = document.createElement("img");
+  contactPhoto.classList.add("contact-photo");
+  contactImage.appendChild(contactPhoto);
+
+  // Récupérer l'image
+  const file = image.files[0];
+  // vérifier si un fichier a été sélectionné
+  if (!file) {
+    console.log("Aucune image sélectionnée");
+    return;
+  }
+  // créer un lecteur pour lire le contenu de l'image
+  const reader = new FileReader();
+  // quand le fichier est chargé, utiliser la propriété result pour afficher l'image dans l'élément img
+  reader.onload = function (e) {
+    contactPhoto.src = e.target.result;
+  };
+  // lire le fichier
+  reader.readAsDataURL(file);
+
+  // Créer une div pour afficher les informations genre les noms et autres de contact
+  const contactInfo = document.createElement("div");
+  contactInfo.classList.add("contact-info");
+  newContact.appendChild(contactInfo);
+
+  // Créer les elements p dans la div de class contact-info
+  const contactNoms = document.createElement("p");
+  contactNoms.classList.add("contact-noms");
+  contactInfo.appendChild(contactNoms);
+
+  // Mettre le prénom, nom et groupe dans l'element p
+  contactNoms.textContent =
+    prenomValue + " " + nomValue + " " + "-" + " " + groupeValue;
+  const contactTelephone = document.createElement("p");
+  contactTelephone.classList.add("contact-telephone");
+  contactInfo.appendChild(contactTelephone);
+
+  // Mettre le numero telephone et l'email dans l'element p
+  contactTelephone.textContent = telephoneValue + " " + "/" + " " + emailValue;
+
+  // Idem pour la bio du contact
+  const contactBio = document.createElement("p");
+  contactBio.classList.add("contact-bio");
+  contactInfo.appendChild(contactBio);
+
+  // Mettre la biographie dans l'element p
+  contactBio.textContent = bioValue;
+
+  // Créer une div pour afficher les icons edit et delete
+  const contactIcons = document.createElement("div");
+  contactIcons.classList.add("icons");
+  newContact.appendChild(contactIcons);
+
+  // Créer les icônes pour éditer et supprimer
+  const editIcon = document.createElement("img");
+  editIcon.src = "edit.svg";
+  editIcon.classList.add("contact-edit");
+  contactIcons.appendChild(editIcon);
+
+  // Mettre un event sur l'icon éditer les informations d'un contact
+  document.querySelectorAll(".contact-edit").forEach(function (editIcon) {
+    editIcon.addEventListener("click", function (event) {
+      event.preventDefault(); // empêche la soumission du formulaire
+
+      // Récupérer les informations du contact sélectionné
+      const contact = this.parentNode.parentNode;
+      const prenomValue = contact
+        .querySelector(".contact-noms")
+        .textContent.split(" ")[0];
+      const nomValue = contact
+        .querySelector(".contact-noms")
+        .textContent.split(" ")[1];
+      const groupeValue = contact
+        .querySelector(".contact-noms")
+        .textContent.split("-")[1]
+        .trim();
+      const telephoneValue = contact
+        .querySelector(".contact-telephone")
+        .textContent.split("/")[0]
+        .trim();
+      const emailValue = contact
+        .querySelector(".contact-telephone")
+        .textContent.split("/")[1]
+        .trim();
+      const bioValue = contact.querySelector(".contact-bio").textContent;
+      // const imageValue = contact.querySelector(".contact-photo").src;
+      const imageValue = "";
+
+      // Ouvrir une nouvelle fenêtre pour afficher le formulaire de modification
+      const newWindow = window.open(
+        "modification_form.html",
+        "Modification de contact",
+        "width=1000, height=1000"
+      );
+
+      // Attendre que la nouvelle fenêtre soit prête
+      newWindow.onload = function () {
+        // Récupérer les champs de formulaire dans la nouvelle fenêtre
+        const newPrenom = newWindow.document.getElementById("prenom");
+        const newNom = newWindow.document.getElementById("nom");
+        const newTelephone = newWindow.document.getElementById("telephone");
+        const newGroupe = newWindow.document.getElementById("groupe");
+        const newEmail = newWindow.document.getElementById("email");
+        const newBio = newWindow.document.getElementById("bio");
+        const newImage = newWindow.document.getElementById("input-image");
+        const newButtonCreer = newWindow.document.getElementById("buttonCreer");
+        const newButtonRenit = newWindow.document.getElementById("buttonRenit");
+
+        // Remplir les champs de formulaire avec les informations du contact sélectionné
+        newPrenom.value = prenomValue;
+        newNom.value = nomValue;
+        newTelephone.value = telephoneValue;
+        newGroupe.value = groupeValue;
+        newEmail.value = emailValue;
+        newBio.value = bioValue;
+        // newImage.src = imageValue;
+        newImage.value = imageValue;
+
+        // Changer le bouton "Créer" en "Modifier"
+        newButtonCreer.textContent = "Modifier";
+        // Montrer le bouton "Annuler"
+        newButtonRenit.style.display = "inline-block";
+
+        // Ajouter les écouteurs d'événements pour la modification et l'annulation
+        newButtonRenit.addEventListener("click", function () {
+          newWindow.close();
+        });
+        newButtonCreer.addEventListener("click", function () {
+          event.preventDefault(); // empêche la soumission du formulaire
+
+          // Récupérer les valeurs des champs de formulaire
+          const newPrenomValue = newPrenom.value;
+          const newNomValue = newNom.value;
+          const newTelephoneValue = newTelephone.value;
+          const newGroupeValue = newGroupe.value;
+          const newEmailValue = newEmail.value;
+          const newBioValue = newBio.value;
+          // const newimageValue = newImage.files[0];
+          // Récupérer l'image
+          const newimageValue = newImage.files[0];
+          // vérifier si un fichier a été sélectionné
+          if (!file) {
+            console.log("Aucune image sélectionnée");
+            return;
+          }
+          // créer un lecteur pour lire le contenu de l'image
+          const reader = new FileReader();
+          // quand le fichier est chargé, utiliser la propriété result pour afficher l'image dans l'élément img
+          reader.onload = function (e) {
+            contactPhoto.src = e.target.result;
+          };
+          // lire le fichier
+          reader.readAsDataURL(newimageValue);
+
+          // Mettre à jour les informations du contact sélectionné dans la liste des contacts
+          contact.querySelector(".contact-noms").textContent =
+            newPrenomValue +
+            " " +
+            newNomValue +
+            " " +
+            "-" +
+            " " +
+            newGroupeValue;
+          contact.querySelector(".contact-telephone").textContent =
+            newTelephoneValue + " " + "/" + " " + newEmailValue;
+          contact.querySelector(".contact-bio").textContent = newBioValue;
+          contact.querySelector(".contact-photo").src = newimageValue;
+
+          // fermer la nouvelle fenêtre
+          newWindow.close();
+        });
+      };
+    });
+  });
+
+  const deleteIcon = document.createElement("img");
+  deleteIcon.src = "delete.svg";
+  deleteIcon.classList.add("contact-delete");
+  contactIcons.appendChild(deleteIcon);
+  // Mettre un evenement sur l'icon delete
+  deleteIcon.addEventListener("click", function () {
+    // Confirmer la suppression avant de supprimer le contact
+    const confirmation = confirm("Voulez-vous vraiment supprimer ce contact ?");
+    if (confirmation) {
+      newContact.remove();
+>>>>>>> 116e04c (fix: merge master with develop)
     }
+  });
+
+  // Vider les champs du formulaire
+  prenom.value = "";
+  nom.value = "";
+  telephone.value = "";
+  groupe.value = "1";
+  email.value = "";
+  bio.value = "";
+  image.value = "";
 });
 
-
-const nameInput = document.querySelector('#nom')
-
-nameInput.addEventListener('input', function(){
-  if (!isValidName(nameInput.value)) {
-    nameError.innerHTML = "le nom doit être composé de 3 à 5 caractères"
-    nameInput.style.borderColor = "red";
-    nameError.style.color = "red"
-    nameError.style.marginLeft = "5%";
-    nameError.id = "name-error";
-    nameInput.parentNode.appendChild(nameError);
-  } else {
-    nameInput.style.borderColor = 'black';
-    const error = document.getElementById("name-error");
-    error?.remove();
-  }
-})
-
-
-const firstName = document.querySelector("#postnom")
-
-firstName.addEventListener("input", function(){
-  if (!isFirstNameValid(firstName.value)){
-    firstNameError.innerHTML = "le prénom doit être composé de 3 à 5 caractères"
-    firstNameError.style.color = "red"
-    firstName.style.borderColor = "red"
-    firstNameError.style.marginLeft = "5%";
-    firstNameError.id = "firstName";
-    firstName.parentNode.appendChild(firstNameError)
-  } else {
-    firstName.style.borderColor = 'black';
-    const error = document.getElementById("firstName");
-    error?.remove();
-  }
-})
+// Ajout de l'événement "click" au bouton Rénit
+buttonRenit.addEventListener("click", function (event) {
+  event.preventDefault(); // empêche l'envoi du formulaire
+  // Récupération du formulaire
+  var form = document.getElementById("form");
+  // Réinitialisation du formulaire
+  form.reset();
+});
