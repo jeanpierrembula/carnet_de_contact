@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+// <<<<<<< HEAD
 let contacts = [];
 let lisfOfTel = [];
 let listOfEmail = [];
@@ -247,7 +247,9 @@ phoneInput.addEventListener('input', function(){
     // Supprimer le message d'erreur
     const errortel = document.getElementById("phone-error");
     errortel?.remove();
-=======
+     }
+})
+//=======
 // Récupérer les éléments du formulaire
 const prenom = document.getElementById("prenom");
 const nom = document.getElementById("nom");
@@ -469,7 +471,7 @@ buttonCreer.addEventListener("click", function (event) {
     const confirmation = confirm("Voulez-vous vraiment supprimer ce contact ?");
     if (confirmation) {
       newContact.remove();
->>>>>>> 116e04c (fix: merge master with develop)
+// >>>>>>> 116e04c (fix: merge master with develop)
     }
   });
 
