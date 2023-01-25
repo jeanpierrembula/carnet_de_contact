@@ -119,7 +119,7 @@ function getFormData() {
         error.id = "email-error";
         form.appendChild(error);
         return;
-     }    else {
+     } else {
       contacts.push(newContact);
       lisfOfTel.push(newContact["tel"])
       listOfEmail.push(newContact["email"])
