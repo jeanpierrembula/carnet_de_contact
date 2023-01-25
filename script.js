@@ -66,6 +66,7 @@ function getFormData() {
       return;
     }
   
+    const emailInput = document.getElementById("email")
     if (!isValidEmail(email)) {
       emailInput.style.borderColor = 'red';
       //Ajouter un message d'erreur
@@ -76,7 +77,8 @@ function getFormData() {
       form.appendChild(error);
       return;
     }
-  
+    
+    const telInput = document.getElementById("tel")
     if (!isValidTel(tel)) {
       telInput.style.borderColor = 'red';
       //Ajouter un message d'erreur
@@ -88,6 +90,7 @@ function getFormData() {
       return;
     }
     
+    const nameInput = document.getElementById("nom")
     if (!isValidName(nom)) {
       nameInput.style.borderColor = 'red';
       //Ajouter un message d'erreur
@@ -98,7 +101,8 @@ function getFormData() {
       form.appendChild(nameError);
       return;
     }
-  
+    
+    const firstNameInput = document.getElementById("postnom")
     if (!isFirstNameValid(postnom)) {
       firstNameInput.style.borderColor = 'red';
       //Ajouter un message d'erreur
