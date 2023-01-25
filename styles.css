@@ -21,7 +21,7 @@
   line-height: 30px;
   padding: 30px;
 }
-.mainContent {
+.container {
   display: flex;
   width: 90%;
   /* height: 1500px; */
@@ -36,7 +36,7 @@
   border: 1px solid #C4C4C4;
 }
 
-.contactSide, .contactContainer {
+.contactContainer {
   width: 58%;
   margin-left: 20px;
   /* border-left: 1px solid #C4C4C4;
@@ -52,6 +52,11 @@
   font-weight: 700;
   text-align: center;
   padding: 20px 0;
+}
+
+
+.contactSide {
+  width: 100%;
 }
 
 .form-group {
@@ -197,16 +202,16 @@ div .groupe1 {
 }
 
 @media screen and (max-width: 950px) {
-  .mainContent {
+  .container {
       display: flex;
       flex-direction: column;
   }
 
-  .form, .contactSide {
+  .form, .contactContainer {
       width: 98%;
   }
 
-  .contactSide {
+  .contactContainer {
       margin-top: 20px;
       margin-left: 0;
   }

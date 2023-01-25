@@ -250,7 +250,7 @@ phoneInput.addEventListener('input', function(){
      }
 })
 //=======
-// Récupérer les éléments du formulaire
+/*// Récupérer les éléments du formulaire
 const prenom = document.getElementById("prenom");
 const nom = document.getElementById("nom");
 const telephone = document.getElementById("telephone");
@@ -492,4 +492,4 @@ buttonRenit.addEventListener("click", function (event) {
   var form = document.getElementById("form");
   // Réinitialisation du formulaire
   form.reset();
-});
+})*/;
