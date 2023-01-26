@@ -45,6 +45,7 @@ function getFormData() {
   const groupe = document.getElementById("groupe").value;
   const email = document.getElementById("email").value;
   const detail = document.getElementById("detail").value;
+  const imglink = document.querySelector("#contact-image")
 
     // Create a new contact object
     const newContact = {
@@ -55,6 +56,12 @@ function getFormData() {
       email: email,
       detail: detail,
     };
+
+    console.log(newContact)
+
+    // const contactImage = document.createElement("div");
+    // contactImage.classList.add("contact-image");
+    // newContact.appendChild(contactImage);
   
     // Validate the form data
     if (!postnom || !nom || !tel || !groupe || !email) {
@@ -140,7 +147,7 @@ function getFormData() {
        // Clear form
        form.reset();
        // Update the contact list
-       updateContactList();
+       renderContacts();
       }
     } else {
       // Update the existing contact
@@ -148,10 +155,12 @@ function getFormData() {
       // Clear form
       form.reset();
       // Update the contact list
-      updateContactList();
+      renderContacts();
       // Reset editing index
       editingIndex = null;
     }
+
+    console.log(contacts)
   }
   
   
@@ -159,7 +168,8 @@ function getFormData() {
 
 // Render the contacts in the contact container
 function renderContacts() {
-  contactContainer.innerHTML = "";
+  // contactContainer.innerHTML = "";
+  const contactList = document.querySelector("#contacts-list")
   for (let i = 0; i < contacts.length; i++) {
     // Create a new contact element
     const contact = document.createElement("div");
@@ -176,17 +186,16 @@ function renderContacts() {
       <p>${contacts[i].detail}</p>
     </div>
     `;
-
-    contactContainer.appendChild(contact);
+    console.log(`${contacts[i].tel}`)
+    contactList.appendChild(contact);
 
     const deleteBtn = contact.querySelector(".delete-btn");
     deleteBtn.addEventListener("click", (e) => {
-    
       contacts.splice(i, 1);
       renderContacts();
     });
 
-    // handle edit button 
+    // // handle edit button 
     const editBtn = contact.querySelector(".edit-btn");
     editBtn.addEventListener("click", (e) => {
       
@@ -204,6 +213,7 @@ function renderContacts() {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+
   getFormData();
   renderContacts();
 });
