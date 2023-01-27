@@ -14,6 +14,12 @@ const errortel = document.createElement("p");
 const nameError = document.createElement("p") 
 const firstNameError = document.createElement("p") 
 
+const dropzone = document.querySelector("dropzone")
+
+// dropzone.addEventListener("dragover", (e) => {
+//   e.preventDefault()
+  
+// })
 //mail validation
 function isValidEmail(email) {
   let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -45,7 +51,6 @@ function getFormData() {
   const groupe = document.getElementById("groupe").value;
   const email = document.getElementById("email").value;
   const detail = document.getElementById("detail").value;
-  const imglink = document.querySelector("#contact-image")
 
     // Create a new contact object
     const newContact = {
@@ -147,7 +152,7 @@ function getFormData() {
        // Clear form
        form.reset();
        // Update the contact list
-       renderContacts();
+      //  renderContacts();
       }
     } else {
       // Update the existing contact
@@ -155,7 +160,7 @@ function getFormData() {
       // Clear form
       form.reset();
       // Update the contact list
-      renderContacts();
+      // renderContacts();
       // Reset editing index
       editingIndex = null;
     }
@@ -192,7 +197,6 @@ function renderContacts() {
     const deleteBtn = contact.querySelector(".delete-btn");
     deleteBtn.addEventListener("click", (e) => {
       contacts.splice(i, 1);
-      renderContacts();
     });
 
     // // handle edit button 
