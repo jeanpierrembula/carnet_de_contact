@@ -1,51 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>replit</title>
+    <link href="styles.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,800&family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-  <header>
-
-  </header>
-
-  <main>
-    <form>
-      <h2>Formulaire de contact</h2>
-      <label for="nom">Nom :</label><br>
-      <input type="text" id="nom" name="nom"><br>
-      <label for="postnom">Postnom :</label><br>
-      <input type="text" id="postnom" name="postnom"><br>
-      <label for="tel">Téléphone :</label><br>
-      <input type="tel" id="tel" name="tel"><br>
-      <label for="groupe-email">Groupe email :</label><br>
-      <input type="email" id="groupe-email" name="groupe-email"><br>
-      <label for="details">Détails :</label><br>
-      <textarea id="details" name="details"></textarea><br>
-      <label for="image">Image :</label><br>
-      <input type="file" id="image" name="image" accept="image/*" required><br>
-      <button type="submit">Créer</button>
-      <button type="reset">Réinitialiser</button>
-  </form>
-  <div>
-    <h1>
-
-    </h1>
-    
+  <body>
+    <header>
+      <nav class="navBar">
+        <h1>carnet de contact</h1>
+      </nav>
+    </header>
+    <div class="container">
+      <div class="form">
+        <div>
+          <h2>Formulaire de contact</h2>
+        </div>
+        <form id="form">
+      <div class="form-group">
+        <label for="postnom">Prénom</label>
+        <input type="text" id="postnom" name="postnom" required />
+      </div>
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" required />
+      </div>
+      <div class="form-group">
+        <label for="tel">Téléphone</label>
+        <input type="text" id="tel" name="tel" maxlength="10" required />
+      </div>
+      <div class="form-group">
+        <label for="groupe">Groupe</label>
+        <select id="groupe" name="groupe" required>
+          <option value="famille">Famille</option>
+          <option value="amis">Amis</option>
+          <option value="travail" selected>Travail</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div class="form-group">
+        <label for="detail">Bio</label>
+        <textarea id="detail" name="detail"></textarea>
+      </div>
+      <div class="dropzone">
+        <input type="file" id="filein" hidden/>
+        <p>Glissez et déposez vos fichiers ici</p>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Créer</button>
+        <button type="reset" class="btn btn-secondary">
+          Réinitialiser
+        </button>
+      </div>
+    </form>
   </div>
-  </main>
-  <script src="script.js"></script>
+      <div class="contactContainer">
+        <div class="contactSide">
+          <h2>Liste des contacts</h2>
+        </div>
 
- <!--
-  This script places a badge on your repl's full-browser view back to your repl's cover
-  page. Try various colors for the theme: dark, light, red, orange, yellow, lime, green,
-  teal, blue, blurple, magenta, pink!
-  -->
-  <script src="https://replit.com/public/js/replit-badge.js" theme="blue" defer></script> 
-</body>
+        <div id="contacts-list" class="contacts-list">
+          <!-- liste des contacts -->
+        </div>
+      </div>
+    </div>
 
+    <script src="script.js"></script>
+  </body>
 </html>
