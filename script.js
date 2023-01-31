@@ -253,8 +253,13 @@ function renderContacts() {
     contactList.appendChild(contact);
 
     const deleteBtn = contact.querySelector(".delete-btn");
+    // Mettre un evenement sur l'icon delete
     deleteBtn.addEventListener("click", (e) => {
-      contacts.splice(i, 1);
+    const confirmation = confirm("Voulez-vous vraiment supprimer ce contact ?");
+      if (confirmation) {
+        contact.remove();
+
+      }
     });
 
     // // handle edit button 
@@ -324,7 +329,13 @@ phoneInput.addEventListener('input', function(){
     const errortel = document.getElementById("phone-error");
     errortel?.remove();
      }
-})
+});
+
+
+
+
+
+
 //=======
 /*// Récupérer les éléments du formulaire
 const prenom = document.getElementById("prenom");
