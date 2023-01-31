@@ -14,12 +14,68 @@ const errortel = document.createElement("p");
 const nameError = document.createElement("p") 
 const firstNameError = document.createElement("p") 
 
-const dropzone = document.querySelector("dropzone")
+const dropzone = document.querySelector(".dropzone")
+const childP = dropzone.firstElementChild;
 
-// dropzone.addEventListener("dragover", (e) => {
-//   e.preventDefault()
-  
-// })
+dropzone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  childP.innerHTML = 'Relacher image';
+  childP.classList.add('active');
+});
+
+dropzone.addEventListener('dragleave', () => {
+  dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`;
+  dropzone.classList.remove('active');
+});
+
+dropzone.addEventListener('drop', (event) => {
+  event.preventDefault();
+  file = event.dataTransfer.files[0];
+  let fileType = file.type;
+  let validExt = ['image/jpeg','image/jpg','image/png'];
+  if(file.size >1000000){
+    dropzone.style.borderColor = "red"
+    dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`
+    document.getElementById("imgErr").style.color="red"
+    document.getElementById("imgErr").innerHTML = `<p><span class="warning__Icon"><i class="fa-solid fa-circle-exclamation"></i></span>le poids de l’image doit être inférieur à 1 Mo</p>`;
+    Object.defineProperty(erreurs, 'image', {
+      value: 'le poids de l’image doit être inférieur à 1 Mo',
+      writable : true,
+      enumerable : true,
+      configurable : true
+      });
+  }else if(!validExt.includes(fileType)){
+    dropzone.style.borderColor = "red"
+    dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`
+    document.getElementById("imgErr").style.color="red"
+    document.getElementById("imgErr").innerHTML = `<p><span class="warning__Icon"><i class="fa-solid fa-circle-exclamation"></i></span>Ce fichier n'est pas une image</p>`;
+    Object.defineProperty(erreurs, 'image', {
+        value: "Le fichier n'est pas une image",
+        writable : true,
+        enumerable : true,
+        configurable : true
+    });
+  }
+  else{
+    dropzone.style.borderColor = ""
+    document.getElementById("imgErr").style.color=""
+    document.getElementById("imgErr").innerHTML = "";
+    displayImg();
+    delete erreurs.image;
+  }
+});
+function displayImg(){
+  let fileReader = new FileReader()
+  fileReader.onload = () => {
+    fileURL = fileReader.result;
+    let imgTag = `<img src = "${fileURL}" alt = "" >`;
+    dropzone.innerHTML = imgTag;
+  }
+  fileReader.readAsDataURL(file);
+}
+
+
 //mail validation
 function isValidEmail(email) {
   let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -184,7 +240,9 @@ function renderContacts() {
     <div class="contactdesc">
       <div class="groupe1">
       <p>${contacts[i].postnom} ${contacts[i].nom} ${contacts[i].groupe}</p>
-      <p><button class="edit-btn">Edit</button> <button class="delete-btn">Delete</button></p>
+      <p class="button"> <button class="edit-btn"></button>
+      <button class="delete-btn"></i></button>
+     </p>
       </div>
       <p>${contacts[i].tel}</p>
       <p>${contacts[i].email}</p>

@@ -125,7 +125,7 @@ padding-left: 10px;
   text-align: center;
 }
 
-.dropzone p {
+.dropzone p{
   width: 144px;
   font-family: 'Poppins';
   font-style: normal;
@@ -200,6 +200,34 @@ div .groupe1 {
   padding-bottom: 20px;
   font-weight: 900;
 }
+
+.button .edit-btn {
+  width: 20px;
+  height: 20px;
+  background-image: url(edit.svg);
+  background-repeat: no-repeat;
+  /* padding-left: 20px; */
+  border: none;
+  background-color: white;
+}
+
+.button .delete-btn {
+  background-image: url(delete.svg);
+  background-repeat: no-repeat;
+  /* padding-left: 20px; */
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: white;
+}
+
+/* .active {
+  display: block;
+  text-align: center;
+  margin: auto;
+  color: red;
+} */
+
 
 @media screen and (max-width: 950px) {
   .container {
