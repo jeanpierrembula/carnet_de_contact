@@ -14,67 +14,6 @@ const errortel = document.createElement("p");
 const nameError = document.createElement("p") 
 const firstNameError = document.createElement("p") 
 
-const dropzone = document.querySelector(".dropzone")
-const childP = dropzone.firstElementChild;
-
-dropzone.addEventListener('dragover', (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  childP.innerHTML = 'Relacher image';
-  childP.classList.add('active');
-});
-
-// dropzone.addEventListener('dragleave', () => {
-//   dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`;
-//   dropzone.classList.remove('active');
-// });
-
-// dropzone.addEventListener('drop', (event) => {
-//   event.preventDefault();
-//   file = event.dataTransfer.files[0];
-//   let fileType = file.type;
-//   let validExt = ['image/jpeg','image/jpg','image/png'];
-//   if(file.size >1000000){
-//     dropzone.style.borderColor = "red"
-//     dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`
-//     document.getElementById("imgErr").style.color="red"
-//     document.getElementById("imgErr").innerHTML = `<p><span class="warning__Icon"><i class="fa-solid fa-circle-exclamation"></i></span>le poids de l’image doit être inférieur à 1 Mo</p>`;
-//     Object.defineProperty(erreurs, 'image', {
-//       value: 'le poids de l’image doit être inférieur à 1 Mo',
-//       writable : true,
-//       enumerable : true,
-//       configurable : true
-//       });
-//   }else if(!validExt.includes(fileType)){
-//     dropzone.style.borderColor = "red"
-//     dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`
-//     document.getElementById("imgErr").style.color="red"
-//     document.getElementById("imgErr").innerHTML = `<p><span class="warning__Icon"><i class="fa-solid fa-circle-exclamation"></i></span>Ce fichier n'est pas une image</p>`;
-//     Object.defineProperty(erreurs, 'image', {
-//         value: "Le fichier n'est pas une image",
-//         writable : true,
-//         enumerable : true,
-//         configurable : true
-//     });
-//   }
-//   else{
-//     dropzone.style.borderColor = ""
-//     document.getElementById("imgErr").style.color=""
-//     document.getElementById("imgErr").innerHTML = "";
-//     displayImg();
-//     delete erreurs.image;
-//   }
-// });
-function displayImg(){
-  let fileReader = new FileReader()
-  fileReader.onload = () => {
-    fileURL = fileReader.result;
-    let imgTag = `<img src = "${fileURL}" alt = "" >`;
-    dropzone.innerHTML = imgTag;
-  }
-  fileReader.readAsDataURL(file);
-}
-
 
 //mail validation
 function isValidEmail(email) {
@@ -99,6 +38,19 @@ function isFirstNameValid(firstName) {
   return rn.test(firstName)
 }
 
+const dropzone = document.querySelector(".dropzone");
+const filein = document.querySelector("#filein");
+let imgLink = ""
+
+filein.addEventListener("change", (e) => {
+  e.preventDefault();
+
+  let file = filein.files[0];
+  imgLink = URL.createObjectURL(file);
+  dropzone.style.backgroundImage = "url(" + imgLink + ")";
+  dropzone.style.backgroundSize = "cover";
+});
+
 // Get form data
 function getFormData() {
   const postnom = document.getElementById("postnom").value;
@@ -107,7 +59,7 @@ function getFormData() {
   const groupe = document.getElementById("groupe").value;
   const email = document.getElementById("email").value;
   const detail = document.getElementById("detail").value;
-
+  
     // Create a new contact object
     const newContact = {
       postnom: postnom,
@@ -118,11 +70,7 @@ function getFormData() {
       detail: detail,
     };
 
-    console.log(newContact)
-
-    // const contactImage = document.createElement("div");
-    // contactImage.classList.add("contact-image");
-    // newContact.appendChild(contactImage);
+    newContact.image = imgLink
   
     // Validate the form data
     if (!postnom || !nom || !tel || !groupe || !email) {
@@ -194,9 +142,10 @@ function getFormData() {
         return;
      } else {
       contacts.push(newContact);
+      
       lisfOfTel.push(newContact["tel"])
       listOfEmail.push(newContact["email"])
-      console.log(listOfEmail)
+
        // Si l'adresse email est valide, changer la bordure en vert
        emailInput.style.borderColor = 'green';
        nameInput.style.borderColor = 'green';
@@ -221,7 +170,7 @@ function getFormData() {
       editingIndex = null;
     }
 
-    console.log(contacts)
+    dropzone.style.backgroundImage = "none";
   }
   
   
@@ -236,7 +185,9 @@ function renderContacts() {
     const contact = document.createElement("div");
     contact.classList.add("contact");
     contact.innerHTML = `
-    <div class="contacimg"></div>
+    <div class="contacimg">
+    <img src="${contacts[i].image}">
+    </div>
     <div class="contactdesc">
       <div class="groupe1">
       <p>${contacts[i].postnom} ${contacts[i].nom} ${contacts[i].groupe}</p>
