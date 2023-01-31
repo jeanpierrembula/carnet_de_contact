@@ -221,12 +221,9 @@ div .groupe1 {
   background-color: white;
 }
 
-/* .active {
-  display: block;
-  text-align: center;
-  margin: auto;
-  color: red;
-} */
+.active {
+  border: 2px dotted #0880D6;
+}
 
 
 @media screen and (max-width: 950px) {

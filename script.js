@@ -24,47 +24,47 @@ dropzone.addEventListener('dragover', (e) => {
   childP.classList.add('active');
 });
 
-dropzone.addEventListener('dragleave', () => {
-  dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`;
-  dropzone.classList.remove('active');
-});
+// dropzone.addEventListener('dragleave', () => {
+//   dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`;
+//   dropzone.classList.remove('active');
+// });
 
-dropzone.addEventListener('drop', (event) => {
-  event.preventDefault();
-  file = event.dataTransfer.files[0];
-  let fileType = file.type;
-  let validExt = ['image/jpeg','image/jpg','image/png'];
-  if(file.size >1000000){
-    dropzone.style.borderColor = "red"
-    dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`
-    document.getElementById("imgErr").style.color="red"
-    document.getElementById("imgErr").innerHTML = `<p><span class="warning__Icon"><i class="fa-solid fa-circle-exclamation"></i></span>le poids de l’image doit être inférieur à 1 Mo</p>`;
-    Object.defineProperty(erreurs, 'image', {
-      value: 'le poids de l’image doit être inférieur à 1 Mo',
-      writable : true,
-      enumerable : true,
-      configurable : true
-      });
-  }else if(!validExt.includes(fileType)){
-    dropzone.style.borderColor = "red"
-    dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`
-    document.getElementById("imgErr").style.color="red"
-    document.getElementById("imgErr").innerHTML = `<p><span class="warning__Icon"><i class="fa-solid fa-circle-exclamation"></i></span>Ce fichier n'est pas une image</p>`;
-    Object.defineProperty(erreurs, 'image', {
-        value: "Le fichier n'est pas une image",
-        writable : true,
-        enumerable : true,
-        configurable : true
-    });
-  }
-  else{
-    dropzone.style.borderColor = ""
-    document.getElementById("imgErr").style.color=""
-    document.getElementById("imgErr").innerHTML = "";
-    displayImg();
-    delete erreurs.image;
-  }
-});
+// dropzone.addEventListener('drop', (event) => {
+//   event.preventDefault();
+//   file = event.dataTransfer.files[0];
+//   let fileType = file.type;
+//   let validExt = ['image/jpeg','image/jpg','image/png'];
+//   if(file.size >1000000){
+//     dropzone.style.borderColor = "red"
+//     dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`
+//     document.getElementById("imgErr").style.color="red"
+//     document.getElementById("imgErr").innerHTML = `<p><span class="warning__Icon"><i class="fa-solid fa-circle-exclamation"></i></span>le poids de l’image doit être inférieur à 1 Mo</p>`;
+//     Object.defineProperty(erreurs, 'image', {
+//       value: 'le poids de l’image doit être inférieur à 1 Mo',
+//       writable : true,
+//       enumerable : true,
+//       configurable : true
+//       });
+//   }else if(!validExt.includes(fileType)){
+//     dropzone.style.borderColor = "red"
+//     dropzone.innerHTML = `<p class="text-image">Déposez la photo ici ou <span class="span-click">Cliquer ici</span></p>`
+//     document.getElementById("imgErr").style.color="red"
+//     document.getElementById("imgErr").innerHTML = `<p><span class="warning__Icon"><i class="fa-solid fa-circle-exclamation"></i></span>Ce fichier n'est pas une image</p>`;
+//     Object.defineProperty(erreurs, 'image', {
+//         value: "Le fichier n'est pas une image",
+//         writable : true,
+//         enumerable : true,
+//         configurable : true
+//     });
+//   }
+//   else{
+//     dropzone.style.borderColor = ""
+//     document.getElementById("imgErr").style.color=""
+//     document.getElementById("imgErr").innerHTML = "";
+//     displayImg();
+//     delete erreurs.image;
+//   }
+// });
 function displayImg(){
   let fileReader = new FileReader()
   fileReader.onload = () => {
