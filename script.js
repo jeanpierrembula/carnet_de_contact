@@ -285,9 +285,7 @@ function renderContacts() {
 
       newButtonCreer.addEventListener("click", function (){
         event.preventDefault();
-       
         // Mettre à jour les informations du contact sélectionné dans la liste des contacts
-        
         function updateContact(i) {
           contacts[i].postnom = document.getElementById("postnom").value;
           contacts[i].nom = document.getElementById("nom").value;
@@ -295,16 +293,17 @@ function renderContacts() {
           contacts[i].groupe = document.getElementById("groupe").value;
           contacts[i].email = document.getElementById("email").value;
           contacts[i].detail = document.getElementById("detail").value;
-        }
-        
-
-
+         };
 
       });
+      newButtonRenit.addEventListener("click",function(){
+        const annuler = confirm("Voulez-vous annuler les modifications apportées à ce contact ?");
+        if (annuler) {
+          contact.Index(i);
+  
+        }
 
-
-
-
+      } );
 
 
     editingIndex = i;
